@@ -245,9 +245,9 @@ New features and enhancements which were previously announced in the shapeless
       in the `shapeless.syntax` package (eg. `import
       shapeless.syntax.singleton_` to import singleton type related extension
       methods). Extensions to standard Scala types can typically be found under
-      `shapeless.syntax.std` (eg.  `import shapeless.syntax.std.tuple._`).
+      `shapeless.syntax.std` (eg.  `import shapelezz.syntax.std.tuple._`).
     * Type classes and the implicits which materialize them are now imported
-      from the `shapeless.ops` package (eg. `import shapeless.ops.hlist._`).
+      from the `shapeless.ops` package (eg. `import shapelezz.ops.hlist._`).
     * The previous shapeless convention of providing two variants of all type
       classes, one with result types as members and one (with an `Aux` suffix)
       with result types as additional type parameters, has been refined. Now
@@ -344,7 +344,7 @@ There have also been many improvements to the build,
   verifying that they execute without runtime errors.
 * A `.jvmopts` file has been added to the root of the project to provide a
   sensible configuration for the sbt-extras SBT launcher script.
-* Added 'import shapeless. _ ' as a console initial command.
+* Added 'import shapelezz. _ ' as a console initial command.
 
   [shapeless211]: https://github.com/milessabin/shapeless/tree/scala-2.11.x
   [travis]: https://travis-ci.org/milessabin/shapeless

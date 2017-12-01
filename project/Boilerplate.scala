@@ -55,7 +55,7 @@ object Boilerplate {
 
   /** Returns a seq of the generated files.  As a side-effect, it actually generates them... */
   def gen(dir : File) = for(t <- templates) yield {
-    val tgtFile = dir / "shapeless" / t.filename
+    val tgtFile = dir / "shapelezz" / t.filename
     IO.write(tgtFile, t.body)
     tgtFile
   }  
@@ -77,7 +77,7 @@ object Boilerplate {
     | * limitations under the License.
     | */
     |
-    |package shapeless
+    |package shapelezz
   """.stripMargin
 
   class TemplateVals(val arity: Int) {

@@ -19,7 +19,7 @@ lazy val scoverageSettings = Seq(
 )
 
 lazy val buildSettings = Seq(
-  organization := "com.chuusai",
+  organization := "com.cgnal",
   scalaVersion := "2.11.8",
   crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.0-M5")
 )
@@ -56,12 +56,12 @@ lazy val commonSettings = Seq(
   scalacOptions in console in Compile -= "-Xfatal-warnings",
   scalacOptions in console in Test    -= "-Xfatal-warnings",
 
-  initialCommands in console := """import shapeless._""",
+  initialCommands in console := """import shapelezz._""",
 
   scmInfo :=
     Some(ScmInfo(
-      url("https://github.com/milessabin/shapeless"),
-      "scm:git:git@github.com:milessabin/shapeless.git"
+      url("https://github.com/milessabin/shapelezz"),
+      "scm:git:git@github.com:milessabin/shapelezz.git"
     ))
 ) ++ crossVersionSharedSources ++ scalaMacroDependencies
 
@@ -121,7 +121,7 @@ lazy val commonJsSettings = Seq(
       if(isSnapshot.value) sys.process.Process("git rev-parse HEAD").lines_!.head
       else tagName.value
     val a = (baseDirectory in LocalRootProject).value.toURI.toString
-    val g = "https://raw.githubusercontent.com/milessabin/shapeless/" + tagOrHash
+    val g = "https://raw.githubusercontent.com/milessabin/shapelezz/" + tagOrHash
     s"-P:scalajs:mapSourceURI:$a->$g/"
   },
   scalaJSUseRhino in Global := false,
@@ -131,7 +131,7 @@ lazy val commonJsSettings = Seq(
 
 lazy val commonJvmSettings = Seq(
   parallelExecution in Test := false,
-  coverageExcludedPackages := "shapeless.examples.*"
+  coverageExcludedPackages := "shapelezz.examples.*"
 )
 
 lazy val coreSettings = buildSettings ++ commonSettings ++ publishSettings ++
@@ -155,7 +155,7 @@ lazy val CrossTypeMixed: CrossType = new CrossType {
 lazy val core = crossProject.crossType(CrossTypeMixed)
   .configureCross(configureJUnit)
   .configureCross(profile)
-  .settings(moduleName := "shapeless")
+  .settings(moduleName := "shapelezz")
   .settings(coreSettings:_*)
   .configureCross(buildInfoSetup)
   .settings(osgiSettings:_*)
@@ -245,9 +245,9 @@ lazy val publishSettings = Seq(
     else
       Some("releases"  at nexus + "service/local/staging/deploy/maven2")
   },
-  homepage := Some(url("https://github.com/milessabin/shapeless")),
+  homepage := Some(url("https://github.com/milessabin/shapelezz")),
   licenses := Seq("Apache 2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
-  scmInfo := Some(ScmInfo(url("https://github.com/milessabin/shapeless"), "scm:git:git@github.com:milessabin/shapeless.git")),
+  scmInfo := Some(ScmInfo(url("https://github.com/milessabin/shapelezz"), "scm:git:git@github.com:milessabin/shapelezz.git")),
   pomExtra := (
     <developers>
       <developer>
@@ -303,21 +303,21 @@ lazy val mimaSettings = mimaDefaultSettings ++ Seq(
     // Filtering the methods that were added since the checked version
     // (these only break forward compatibility, not the backward one)
     Seq(
-      exclude[MissingMethodProblem]("shapeless.:+:.eliminate"),
-      exclude[MissingMethodProblem]("shapeless.CaseClassMacros.shapeless$CaseClassMacros$$$anonfun$15"),
-      exclude[MissingMethodProblem]("shapeless.CaseClassMacros.shapeless$CaseClassMacros$$$anonfun$16"),
-      exclude[MissingMethodProblem]("shapeless.CaseClassMacros.shapeless$CaseClassMacros$$$anonfun$17"),
-      exclude[MissingMethodProblem]("shapeless.UnwrappedInstances.tagUnwrapped"),
-      exclude[MissingMethodProblem]("shapeless.CaseClassMacros.findField"),
-      exclude[MissingMethodProblem]("shapeless.CaseClassMacros.FieldType"),
-      exclude[MissingMethodProblem]("shapeless.SingletonTypeUtils.parseSingletonSymbolType")
+      exclude[MissingMethodProblem]("shapelezz.:+:.eliminate"),
+      exclude[MissingMethodProblem]("shapelezz.CaseClassMacros.shapelezz$CaseClassMacros$$$anonfun$15"),
+      exclude[MissingMethodProblem]("shapelezz.CaseClassMacros.shapelezz$CaseClassMacros$$$anonfun$16"),
+      exclude[MissingMethodProblem]("shapelezz.CaseClassMacros.shapelezz$CaseClassMacros$$$anonfun$17"),
+      exclude[MissingMethodProblem]("shapelezz.UnwrappedInstances.tagUnwrapped"),
+      exclude[MissingMethodProblem]("shapelezz.CaseClassMacros.findField"),
+      exclude[MissingMethodProblem]("shapelezz.CaseClassMacros.FieldType"),
+      exclude[MissingMethodProblem]("shapelezz.SingletonTypeUtils.parseSingletonSymbolType")
     )
   }
 )
 
 def buildInfoSetup(crossProject: CrossProject): CrossProject = {
   def transform(project: Project) = project enablePlugins BuildInfoPlugin settings (
-    buildInfoPackage := "shapeless",
+    buildInfoPackage := "shapelezz",
     buildInfoUsePackageAsPath := true,
     buildInfoKeys := Seq[BuildInfoKey](version, scalaVersion, gitHeadCommit),
     buildInfoOptions += BuildInfoOption.BuildTime
@@ -326,14 +326,14 @@ def buildInfoSetup(crossProject: CrossProject): CrossProject = {
 }
 
 lazy val osgiSettings = defaultOsgiSettings ++ Seq(
-  OsgiKeys.bundleSymbolicName := "shapeless",
-  OsgiKeys.exportPackage := Seq("shapeless.*;version=${Bundle-Version}"),
+  OsgiKeys.bundleSymbolicName := "shapelezz",
+  OsgiKeys.exportPackage := Seq("shapelezz.*;version=${Bundle-Version}"),
   OsgiKeys.importPackage := Seq("""!scala.quasiquotes,scala.*;version="$<range;[==,=+);$<@>>""""),
   OsgiKeys.additionalHeaders := Map("-removeheaders" -> "Include-Resource,Private-Package")
 )
 
 lazy val tagName = Def.setting{
-  s"shapeless-${if (releaseUseGlobalVersion.value) (version in ThisBuild).value else version.value}"
+  s"shapelezz-${if (releaseUseGlobalVersion.value) (version in ThisBuild).value else version.value}"
 }
 
 lazy val releaseSettings = Seq(
